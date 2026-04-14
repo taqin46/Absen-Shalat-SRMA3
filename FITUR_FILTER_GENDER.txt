@@ -1,0 +1,310 @@
+╔════════════════════════════════════════════════════════════════╗
+║     FITUR BARU: FILTER GENDER + DATA 82 SISWA LENGKAP        ║
+║            Update v1.1 - 14 April 2026                        ║
+╚════════════════════════════════════════════════════════════════╝
+
+🎯 FITUR UTAMA:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ 3 TOMBOL FILTER DI TOOLBAR:
+
+    ┌─────────────────────────────────┐
+    │ 👥 Filter Siswa:                │
+    │ ┌─────────┬────────┬───────────┐ │
+    │ │  Semua  │ 👦 Laki │ 👧 Perempuan│ │
+    │ └─────────┴────────┴───────────┘ │
+    └─────────────────────────────────┘
+
+TOMBOL:
+  • "Semua" - Tampilkan semua 82 siswa (DEFAULT)
+  • "👦 Laki-laki" - Tampilkan 45 siswa laki-laki
+  • "👧 Perempuan" - Tampilkan 37 siswa perempuan
+
+STYLING:
+  • Border: 2px white
+  • Hover: translucent + lift effect
+  • Active: white background + emerald text
+  • Smooth animation: 0.3s
+
+═══════════════════════════════════════════════════════════════════
+
+📊 DATA SISWA LENGKAP:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TOTAL: 82 SISWA
+
+👦 LAKI-LAKI (45 siswa):
+   1. Aditya Risqi Pratama
+   2. Alfansyah Akbar
+   3. Aliv Pratama
+   4. Alnofian Fahrezi
+   5. Alviy Rohim Sitompul
+   6. Ananda Saputra
+   7. Andre Maulana Saputra
+   8. Arbi Ananda
+   9. Ardiansyah Saragih
+  10. Arifin Ishaq
+  11. Aubin Arvansah
+  12. Chiko Pratama
+  13. Dias Dwi Harta
+  14. Dimas Cahaya
+  15. Djifi Al Fajar
+  16. Fafan Riandy Risoba
+  17. Fauzaan Maulana
+  18. Fitra Adrian
+  19. Furqon Habib Sihite
+  20. Gilang Ananda
+  21. Gilang Syaputra
+  22. Kevin Aditya
+  23. M. Fadli Syahban Tanjung
+  24. M. Iqbal Siregar
+  25. Maharaja
+  26. Mhd. Alamsyah
+  27. MHD. Ilham Fadilla
+  28. Muhammad Adib Akbar
+  29. Muhammad Aril
+  30. Muhammad Ikhsan Khafi
+  31. Muhammad Nur Iqwan
+  32. Muhammad Ridho
+  33. Muhammad Rifan
+  34. Nadhit Adhitya Cahyadi
+  35. Nafis
+  36. Putra Wahyu Budiman
+  37. Rafa Abdillah Harahap
+  38. Raidir Rahman Nasution
+  39. Ridho Syahputra Saragih
+  40. Riski Aditia Harahap
+  41. Riz Allam Aqmal
+  42. Salwono Ramadhani
+  43. SAPTA ARI PANCA
+  44. Viqy Aldrian
+  45. Yasir Ibnu Khoir
+
+👧 PEREMPUAN (37 siswa):
+   1. AIRA DWI ANANDA
+   2. Alissa Humaira
+   3. Amelia Putri
+   4. Amirah Batrisyia
+   5. Andari Atika
+   6. Azriani Putri Pohan
+   7. Chandra Kirana Aulia
+   8. Diya Zaskia
+   9. Dwi Anggraini
+  10. Enzel
+  11. Febiana Zahra
+  12. Fitri Randika Sihombing
+  13. Ika Azahra
+  14. Indah Ramadhani
+  15. Indah Tri Aryani
+  16. Jennysa Chabila Nustry Beck
+  17. Kartika Dwi Putri
+  18. Kinanti Cantika Dewi
+  19. Lisnawati BR Sinaga
+  20. Nailah Rasikah
+  21. Novi Permata Sari Nasution
+  22. Nur Khairani
+  23. Nur Syahira Balqis
+  24. Nurkasidah Nasution
+  25. Nurul Ayunisa
+  26. Permata Hafizah
+  27. Putri Ayu Budiman
+  28. Putri Khumaira Zalianti
+  29. Putri Maya
+  30. Qorih Maghfirah Hafizah Siregar
+  31. Rahil Amanda Damanik
+  32. Rana Raisyah
+  33. Rizkya Anggita Syahputri
+  34. Sabila Nazmi
+  35. Sintya Mayang Sari
+  36. Tri Nabila Simangunsong
+  37. Zaskia Rumjani Zahra
+
+═══════════════════════════════════════════════════════════════════
+
+⚙️ CARA KERJA:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. STRUKTUR DATA:
+   const ALL_STUDENTS = {
+     laki: [ {...}, {...}, ... ], // 45 siswa
+     perempuan: [ {...}, {...}, ... ] // 37 siswa
+   }
+
+2. FILTER STATE:
+   let currentFilter = 'semua'; // atau 'laki' atau 'perempuan'
+
+3. FILTER FUNCTION:
+   filterByGender(gender) {
+     currentFilter = gender;
+     loadStudentData(); // render ulang tabel
+     updateFilterStatus(); // update status bar
+   }
+
+4. GET FILTERED DATA:
+   getFilteredStudents(ALL_STUDENTS) {
+     if (currentFilter === 'semua') return all 82
+     if (currentFilter === 'laki') return 45
+     if (currentFilter === 'perempuan') return 37
+   }
+
+5. RENDER TABLE:
+   renderTable() menggunakan data terfilter
+   updateTotalSiswa() update count
+   updateFilterStatus() update indicator
+
+═══════════════════════════════════════════════════════════════════
+
+📱 RESPONSIVE DESIGN:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DESKTOP (≥1200px):
+  ┌─────────────────────────────────────────────┐
+  │ [SEMUA] [👦 LAKI] [👧 PEREMPUAN]  📅 DATE  │
+  │ [Tombol Simpan] [Tombol Kirim]              │
+  └─────────────────────────────────────────────┘
+  [TABEL 82 SISWA]
+
+TABLET (768px - 1199px):
+  ┌─────────────────────────────────────────────┐
+  │ [FILTER BUTTONS] [📅 DATE]                  │
+  │ [Tombol Simpan] [Tombol Kirim]              │
+  └─────────────────────────────────────────────┘
+  [TABEL - SCROLLABLE]
+
+MOBILE (<768px):
+  ┌──────────────────────────┐
+  │ [FILTER BUTTONS]         │
+  │ [📅 DATE]                │
+  │ [Tombol Simpan]          │
+  │ [Tombol Kirim]           │
+  └──────────────────────────┘
+  [TABEL - SCROLLABLE HORIZONTAL]
+
+═══════════════════════════════════════════════════════════════════
+
+✨ STATUS BAR UPDATE:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Sebelum Filter:
+  📊 Total Siswa: 0 | ✅ Tersimpan: Belum ada | Status: Siap
+
+Sesudah Klik "Laki-laki":
+  👥 Filter: 👦 Laki-laki | 📊 Total: 45 | ✅ Tersimpan: ... | Status: ...
+
+Sesudah Klik "Perempuan":
+  👥 Filter: 👧 Perempuan | 📊 Total: 37 | ✅ Tersimpan: ... | Status: ...
+
+Sesudah Klik "Semua":
+  👥 Filter: Semua | 📊 Total: 82 | ✅ Tersimpan: ... | Status: ...
+
+═══════════════════════════════════════════════════════════════════
+
+🔄 SINKRONISASI DATA:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Data di-hardcode di:
+  ✓ Index.html - Array ALL_STUDENTS
+  ✓ DATA_SISWA_LENGKAP.json - Reference file
+
+Loading:
+  1. Halaman load → const ALL_STUDENTS siap
+  2. Click filter → getFilteredStudents() dijalankan
+  3. renderTable() menampilkan data terfilter
+  4. Local Storage backup data sesaat
+
+Email:
+  Kirimkan data dari tabel yang terfilter
+  Laporan otomatis sesuai filter aktif
+
+═══════════════════════════════════════════════════════════════════
+
+🎯 FITUR YANG TETAP:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ Date picker
+✓ Checkbox shalat (7 jenis)
+✓ Edit nama/kelas
+✓ Tambah/hapus baris
+✓ Simpan sesi (Local Storage)
+✓ Email automation
+✓ PDF export
+✓ Responsive design
+✓ Warna: Deep Green/Emerald/Mint
+✓ All previous features
+
+═══════════════════════════════════════════════════════════════════
+
+📋 IMPLEMENTATION:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Setup sama seperti v1.0:
+  ✓ Buat Google Spreadsheet (opsional, bisa kosong)
+  ✓ Buka Apps Script
+  ✓ Paste Index.html (UPDATED)
+  ✓ Paste Code.gs (UPDATED)
+  ✓ Deploy Web App
+  ✓ Data siswa otomatis muncul!
+
+Tidak perlu input data manual!
+
+═══════════════════════════════════════════════════════════════════
+
+✅ QUALITY ASSURANCE:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+□ Tombol filter visible di toolbar
+□ Klik "Semua" → 82 siswa tampil
+□ Klik "Laki-laki" → 45 siswa tampil
+□ Klik "Perempuan" → 37 siswa tampil
+□ Status bar update sesuai filter
+□ Total siswa update otomatis
+□ Active button highlight terlihat
+□ Data terfilter bisa di-centang
+□ Simpan sesi bekerja
+□ Email kirim dengan data terfilter
+□ Mobile responsive OK
+□ No console errors
+
+═══════════════════════════════════════════════════════════════════
+
+📦 FILE YANG TERSEDIA:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Index.html (41 KB) ← UPDATED v1.1
+   - Filter buttons ditambah
+   - ALL_STUDENTS data lengkap
+   - Filter logic baru
+
+2. Code.gs (12 KB) ← UPDATED v1.1
+   - Minor changes, tetap support fallback
+
+3. DATA_SISWA_LENGKAP.json ← NEW
+   - Reference file JSON
+   - 82 siswa terstruktur
+
+4. UPDATE_v1.1.md ← NEW
+   - Dokumentasi lengkap update
+
+5. Semua file lain tetap sama
+
+═══════════════════════════════════════════════════════════════════
+
+🎉 HASIL AKHIR:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Aplikasi Absensi Shalat v1.1 dengan:
+  ✨ Filter gender yang intuitif
+  ✨ Data 82 siswa lengkap siap pakai
+  ✨ UI buttons modern & responsive
+  ✨ Real-time status update
+  ✨ Loading instant (hardcoded data)
+  ✨ 100% backward compatible
+  ✨ Production ready
+
+═══════════════════════════════════════════════════════════════════
+
+Version: 1.1 | Release: 14 April 2026 | Status: Ready ✅
+
+Created with ❤️ for SRMA 3 Tebing Tinggi
+
+═══════════════════════════════════════════════════════════════════

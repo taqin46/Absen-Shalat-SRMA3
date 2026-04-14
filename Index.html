@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absensi Shalat SRMA 3 Tebing Tinggi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --deep-green: #1B4332;
+            --emerald: #2D6A4F;
+            --mint: #52B788;
+            --light-mint: #D8F3DC;
+            --white: #FFFFFF;
+            --gray-light: #F1F1F1;
+            --gray-dark: #333333;
+            --success: #2D6A4F;
+            --warning: #D4A574;
+            --error: #E63946;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--deep-green) 0%, var(--emerald) 100%);
+            min-height: 100vh;
+            padding: 10px;
+            color: var(--gray-dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(27, 67, 50, 0.2);
+            overflow: hidden;
+        }
+
+        /* HEADER - 60% Deep Green */
+        .header {
+            background: linear-gradient(135deg, var(--deep-green) 0%, var(--emerald) 100%);
+            color: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(27, 67, 50, 0.3);
+        }
+
+        .header h1 {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .header p {
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            opacity: 0.95;
+        }
+
+        /* TOOLBAR - 30% Emerald */
+        .toolbar {
+            background: var(--emerald);
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(45, 106, 79, 0.15);
+        }
+
+        .toolbar-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--white);
+            border-radius: 6px;
+            background: transparent;
+            color: var(--white);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: var(--white);
+            color: var(--emerald);
+            border-color: var(--white);
+        }
+
+        .toolbar-group label {
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .toolbar-group input[type="date"] {
+            padding: 10px 15px;
+            border: 2px solid var(--mint);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--white);
+            color: var(--gray-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toolbar-group input[type="date"]:focus {
+            outline: none;
+            background: var(--light-mint);
+            border-color: var(--deep-green);
+        }
+
+        /* BUTTONS - 10% Mint */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--mint);
+            color: var(--deep-green);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #40916C;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(82, 183, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--light-mint);
+            color: var(--deep-green);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #95D5B2;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: var(--error);
+            color: var(--white);
+        }
+
+        .btn-danger:hover:not(:disabled) {
+            background: #d62828;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-sending {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* CONTENT */
+        .content {
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid var(--light-mint);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+        }
+
+        thead {
+            background: var(--emerald);
+            color: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            padding: 15px 10px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-right: 1px solid var(--mint);
+        }
+
+        th:last-child {
+            border-right: none;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--light-mint);
+            transition: background 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background: var(--light-mint);
+        }
+
+        tbody tr:nth-child(even) {
+            background: #F8FFFE;
+        }
+
+        td {
+            padding: 12px 10px;
+            font-size: 0.9rem;
+        }
+
+        .no-col {
+            width: 40px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--emerald);
+        }
+
+        .nama-col {
+            min-width: 150px;
+        }
+
+        .kelas-col {
+            min-width: 100px;
+        }
+
+        .shalat-col {
+            width: 35px;
+            text-align: center;
+            padding: 8px 5px;
+        }
+
+        .checkbox-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkbox-cell input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--mint);
+        }
+
+        .checkbox-cell input[type="checkbox"]:checked {
+            accent-color: var(--deep-green);
+        }
+
+        input[type="text"] {
+            padding: 8px 10px;
+            border: 1px solid var(--mint);
+            border-radius: 5px;
+            font-size: 0.9rem;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--deep-green);
+            background: var(--light-mint);
+        }
+
+        .btn-delete {
+            background: #FFE5E5;
+            color: var(--error);
+            padding: 6px 12px;
+            border: 1px solid var(--error);
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-delete:hover {
+            background: var(--error);
+            color: var(--white);
+        }
+
+        /* INFO MESSAGES */
+        .info-box {
+            background: var(--light-mint);
+            border-left: 4px solid var(--mint);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            color: var(--deep-green);
+            font-size: 0.9rem;
+        }
+
+        .info-box strong {
+            color: var(--emerald);
+        }
+
+        .status-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--light-mint);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--mint);
+            color: var(--white);
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--light-mint);
+            padding: 15px 20px;
+            text-align: center;
+            color: var(--emerald);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--mint);
+        }
+
+        /* LOADING SPINNER */
+        .spinner {
+            border: 4px solid var(--light-mint);
+            border-top: 4px solid var(--mint);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* MODAL ALERT */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(27, 67, 50, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 10% auto;
+            padding: 30px;
+            border: 1px solid var(--mint);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(27, 67, 50, 0.3);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            color: var(--emerald);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            color: var(--gray-dark);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .toolbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .toolbar-group {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .btn-group {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .header {
+                padding: 20px 15px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .shalat-col {
+                padding: 6px 3px;
+            }
+
+            th, td {
+                padding: 10px 5px;
+                font-size: 0.8rem;
+            }
+
+            th {
+                font-size: 0.75rem;
+            }
+
+            .btn {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+
+            .status-bar {
+                gap: 10px;
+                padding: 10px;
+            }
+
+            .status-item {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 0;
+            }
+
+            .header h1 {
+                font-size: 1.3rem;
+            }
+
+            table {
+                font-size: 0.75rem;
+            }
+
+            .nama-col {
+                min-width: 100px;
+            }
+
+            .shalat-col {
+                padding: 4px 2px;
+            }
+
+            .checkbox-cell input[type="checkbox"] {
+                width: 16px;
+                height: 16px;
+            }
+
+            .btn-delete {
+                padding: 4px 8px;
+                font-size: 0.7rem;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* ACCESSIBILITY */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* PRINT STYLE */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .toolbar, .btn-group, .btn-delete {
+                display: none;
+            }
+
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+
+            table {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>📍 ABSENSI SHALAT</h1>
+            <p>SRMA 3 Tebing Tinggi</p>
+        </div>
+
+        <!-- TOOLBAR -->
+        <div class="toolbar">
+            <div class="toolbar-group">
+                <label>👥 Filter Siswa:</label>
+                <div class="filter-group">
+                    <button class="filter-btn active" id="filter-semua" onclick="filterByGender('semua')">Semua</button>
+                    <button class="filter-btn" id="filter-laki" onclick="filterByGender('laki')">👦 Laki-laki</button>
+                    <button class="filter-btn" id="filter-perempuan" onclick="filterByGender('perempuan')">👧 Perempuan</button>
+                </div>
+            </div>
+            <div class="toolbar-group">
+                <label for="tanggal">📅 Pilih Tanggal:</label>
+                <input type="date" id="tanggal" required>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" id="btn-add-row" onclick="tambahBaris()">
+                    ➕ Tambah Baris
+                </button>
+                <button class="btn btn-primary" id="btn-save-session" onclick="simpanSesi()">
+                    💾 Simpan Sesi
+                </button>
+                <button class="btn btn-primary send-all-btn" id="btn-send-all" onclick="kirimSemuaKeEmail()">
+                    📧 Kirim Email
+                </button>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <!-- STATUS BAR -->
+            <div class="status-bar">
+                <div class="status-item">
+                    👥 Filter: <span id="filter-status" class="status-badge">Semua</span>
+                </div>
+                <div class="status-item">
+                    📊 Total Siswa: <span id="total-siswa" class="status-badge">0</span>
+                </div>
+                <div class="status-item">
+                    ✅ Tersimpan: <span id="status-saved">Belum ada</span>
+                </div>
+                <div class="status-item">
+                    🔄 Status: <span id="status-info">Siap</span>
+                </div>
+            </div>
+
+            <!-- INFO BOX -->
+            <div class="info-box">
+                <strong>💡 Tips:</strong> Centang kotak untuk menandai kehadiran shalat. Data otomatis tersimpan saat Anda klik "Simpan Sesi". Anda bisa mengirim laporan berkali-kali dalam sehari.
+            </div>
+
+            <!-- TABLE -->
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="no-col">No</th>
+                            <th class="nama-col">Nama Siswa</th>
+                            <th class="kelas-col">Kelas</th>
+                            <th class="shalat-col" title="Subuh">S</th>
+                            <th class="shalat-col" title="Dhuhur">Dh</th>
+                            <th class="shalat-col" title="Ashar">As</th>
+                            <th class="shalat-col" title="Maghrib">Mg</th>
+                            <th class="shalat-col" title="Isya">Is</th>
+                            <th class="shalat-col" title="Dhuha">Dha</th>
+                            <th class="shalat-col" title="Tahajud">Th</th>
+                            <th style="width: 50px;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        <!-- ROWS WILL BE GENERATED BY JAVASCRIPT -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p>© 2026 SRMA 3 Tebing Tinggi | Sistem Absensi Shalat</p>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header" id="modal-title">Pemberitahuan</div>
+            <div class="modal-body" id="modal-message"></div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+        // ========== CONFIG ==========
+        const CONFIG = {
+            STORAGE_KEY: 'absensi_data',
+            STUDENT_DATA_KEY: 'student_list'
+        };
+
+        // ========== DATA SISWA LENGKAP ==========
+        const ALL_STUDENTS = {
+            laki: [
+                { nama: 'Aditya Risqi Pratama', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Alfansyah Akbar', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Aliv Pratama', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Alnofian Fahrezi', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Alviy Rohim Sitompul', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Ananda Saputra', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Andre Maulana Saputra', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Arbi Ananda', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Ardiansyah Saragih', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Arifin Ishaq', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Aubin Arvansah', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Chiko Pratama', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Dias Dwi Harta', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Dimas Cahaya', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Djifi Al Fajar', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Fafan Riandy Risoba', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Fauzaan Maulana', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Fitra Adrian', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Furqon Habib Sihite', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Gilang Ananda', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Gilang Syaputra', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Kevin Aditya', kelas: 'X-A', gender: 'laki' },
+                { nama: 'M. Fadli Syahban Tanjung', kelas: 'X-A', gender: 'laki' },
+                { nama: 'M. Iqbal Siregar', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Maharaja', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Mhd. Alamsyah', kelas: 'X-A', gender: 'laki' },
+                { nama: 'MHD. Ilham Fadilla', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Muhammad Adib Akbar', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Muhammad Aril', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Muhammad Ikhsan Khafi', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Muhammad Nur Iqwan', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Muhammad Ridho', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Muhammad Rifan', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Nadhit Adhitya Cahyadi', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Nafis', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Putra Wahyu Budiman', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Rafa Abdillah Harahap', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Raidir Rahman Nasution', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Ridho Syahputra Saragih', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Riski Aditia Harahap', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Riz Allam Aqmal', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Salwono Ramadhani', kelas: 'X-A', gender: 'laki' },
+                { nama: 'SAPTA ARI PANCA', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Viqy Aldrian', kelas: 'X-A', gender: 'laki' },
+                { nama: 'Yasir Ibnu Khoir', kelas: 'X-A', gender: 'laki' }
+            ],
+            perempuan: [
+                { nama: 'AIRA DWI ANANDA', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Alissa Humaira', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Amelia Putri', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Amirah Batrisyia', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Andari Atika', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Azriani Putri Pohan', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Chandra Kirana Aulia', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Diya Zaskia', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Dwi Anggraini', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Enzel', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Febiana Zahra', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Fitri Randika Sihombing', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Ika Azahra', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Indah Ramadhani', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Indah Tri Aryani', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Jennysa Chabila Nustry Beck', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Kartika Dwi Putri', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Kinanti Cantika Dewi', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Lisnawati BR Sinaga', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Nailah Rasikah', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Novi Permata Sari Nasution', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Nur Khairani', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Nur Syahira Balqis', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Nurkasidah Nasution', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Nurul Ayunisa', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Permata Hafizah', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Putri Ayu Budiman', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Putri Khumaira Zalianti', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Putri Maya', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Qorih Maghfirah Hafizah Siregar', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Rahil Amanda Damanik', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Rana Raisyah', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Rizkya Anggita Syahputri', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Sabila Nazmi', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Sintya Mayang Sari', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Tri Nabila Simangunsong', kelas: 'X-B', gender: 'perempuan' },
+                { nama: 'Zaskia Rumjani Zahra', kelas: 'X-B', gender: 'perempuan' }
+            ]
+        };
+
+        // ========== FILTER STATE ==========
+        let currentFilter = 'semua';
+
+        // ========== INIT ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            setTodayDate();
+            loadStudentData();
+            loadSavedSession();
+            updateTotalSiswa();
+        });
+
+        // ========== FILTER GENDER ==========
+        function filterByGender(gender) {
+            currentFilter = gender;
+            
+            // Update button states
+            document.getElementById('filter-semua').classList.toggle('active', gender === 'semua');
+            document.getElementById('filter-laki').classList.toggle('active', gender === 'laki');
+            document.getElementById('filter-perempuan').classList.toggle('active', gender === 'perempuan');
+            
+            // Update table
+            loadStudentData();
+        }
+
+        // ========== GET FILTERED STUDENTS ==========
+        function getFilteredStudents(allStudents) {
+            if (currentFilter === 'semua') {
+                return [...allStudents.perempuan, ...allStudents.laki];
+            } else if (currentFilter === 'laki') {
+                return allStudents.laki;
+            } else {
+                return allStudents.perempuan;
+            }
+        }
+
+        // ========== TANGGAL ==========
+        function setTodayDate() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('tanggal').value = today;
+        }
+
+        // ========== LOAD DATA SISWA ==========
+        function loadStudentData() {
+            // Gunakan data hardcoded
+            const students = getFilteredStudents(ALL_STUDENTS);
+            renderTable(students);
+            saveStudentListToStorage(students);
+        }
+
+        function renderTable(students) {
+            const tbody = document.getElementById('tbody');
+            tbody.innerHTML = '';
+
+            students.forEach((student, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="no-col">${index + 1}</td>
+                    <td class="nama-col">
+                        <input type="text" class="input-nama" value="${student.nama || ''}" placeholder="Nama siswa">
+                    </td>
+                    <td class="kelas-col">
+                        <input type="text" class="input-kelas" value="${student.kelas || ''}" placeholder="Kelas">
+                    </td>
+                    <td class="shalat-col">
+                        <div class="checkbox-cell">
+                            <input type="checkbox" class="chk-subuh" data-shalat="Subuh">
+                        </div>
+                    </td>
+                    <td class="shalat-col">
+                        <div class="checkbox-cell">
+                            <input type="checkbox" class="chk-dhuhur" data-shalat="Dhuhur">
+                        </div>
+                    </td>
+                    <td class="shalat-col">
+                        <div class="checkbox-cell">
+                            <input type="checkbox" class="chk-asar" data-shalat="Ashar">
+                        </div>
+                    </td>
+                    <td class="shalat-col">
+                        <div class="checkbox-cell">
+                            <input type="checkbox" class="chk-magrib" data-shalat="Maghrib">
+                        </div>
+                    </td>
+                    <td class="shalat-col">
+                        <div class="checkbox-cell">
+                            <input type="checkbox" class="chk-isya" data-shalat="Isya">
+                        </div>
+                    </td>
+                    <td class="shalat-col">
+                        <div class="checkbox-cell">
+                            <input type="checkbox" class="chk-dhuha" data-shalat="Dhuha">
+                        </div>
+                    </td>
+                    <td class="shalat-col">
+                        <div class="checkbox-cell">
+                            <input type="checkbox" class="chk-tahajud" data-shalat="Tahajud">
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn-delete" onclick="hapusBaris(this)">Hapus</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            updateTotalSiswa();
+        }
+
+        // ========== TAMBAH BARIS ==========
+        function tambahBaris() {
+            const tbody = document.getElementById('tbody');
+            const newIndex = tbody.rows.length + 1;
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td class="no-col">${newIndex}</td>
+                <td class="nama-col">
+                    <input type="text" class="input-nama" placeholder="Nama siswa baru">
+                </td>
+                <td class="kelas-col">
+                    <input type="text" class="input-kelas" placeholder="Kelas">
+                </td>
+                <td class="shalat-col">
+                    <div class="checkbox-cell">
+                        <input type="checkbox" class="chk-subuh">
+                    </div>
+                </td>
+                <td class="shalat-col">
+                    <div class="checkbox-cell">
+                        <input type="checkbox" class="chk-dhuhur">
+                    </div>
+                </td>
+                <td class="shalat-col">
+                    <div class="checkbox-cell">
+                        <input type="checkbox" class="chk-asar">
+                    </div>
+                </td>
+                <td class="shalat-col">
+                    <div class="checkbox-cell">
+                        <input type="checkbox" class="chk-magrib">
+                    </div>
+                </td>
+                <td class="shalat-col">
+                    <div class="checkbox-cell">
+                        <input type="checkbox" class="chk-isya">
+                    </div>
+                </td>
+                <td class="shalat-col">
+                    <div class="checkbox-cell">
+                        <input type="checkbox" class="chk-dhuha">
+                    </div>
+                </td>
+                <td class="shalat-col">
+                    <div class="checkbox-cell">
+                        <input type="checkbox" class="chk-tahajud">
+                    </div>
+                </td>
+                <td>
+                    <button class="btn-delete" onclick="hapusBaris(this)">Hapus</button>
+                </td>
+            `;
+
+            tbody.appendChild(row);
+            updateTotalSiswa();
+            showModal('Sukses', 'Baris baru berhasil ditambahkan!');
+        }
+
+        // ========== HAPUS BARIS ==========
+        function hapusBaris(btn) {
+            if (confirm('Yakin ingin menghapus baris ini?')) {
+                btn.parentElement.parentElement.remove();
+                updateTotalSiswa();
+                showModal('Dihapus', 'Baris berhasil dihapus!');
+            }
+        }
+
+        // ========== UPDATE TOTAL SISWA ==========
+        function updateTotalSiswa() {
+            const total = document.querySelectorAll('#tbody tr').length;
+            document.getElementById('total-siswa').textContent = total;
+            updateFilterStatus();
+        }
+
+        // ========== UPDATE FILTER STATUS ==========
+        function updateFilterStatus() {
+            let filterText = 'Semua';
+            if (currentFilter === 'laki') {
+                filterText = '👦 Laki-laki';
+            } else if (currentFilter === 'perempuan') {
+                filterText = '👧 Perempuan';
+            }
+            document.getElementById('filter-status').textContent = filterText;
+        }
+
+        // ========== SIMPAN SESI ==========
+        function simpanSesi() {
+            const tanggal = document.getElementById('tanggal').value;
+            const rows = document.querySelectorAll('#tbody tr');
+
+            const data = {
+                tanggal: tanggal,
+                timestamp: new Date().toLocaleString('id-ID'),
+                siswa: []
+            };
+
+            rows.forEach((row) => {
+                const nama = row.querySelector('.input-nama').value.trim();
+                const kelas = row.querySelector('.input-kelas').value.trim();
+
+                if (nama) {
+                    data.siswa.push({
+                        nama: nama,
+                        kelas: kelas,
+                        subuh: row.querySelector('.chk-subuh').checked,
+                        dhuhur: row.querySelector('.chk-dhuhur').checked,
+                        asar: row.querySelector('.chk-asar').checked,
+                        magrib: row.querySelector('.chk-magrib').checked,
+                        isya: row.querySelector('.chk-isya').checked,
+                        dhuha: row.querySelector('.chk-dhuha').checked,
+                        tahajud: row.querySelector('.chk-tahajud').checked
+                    });
+                }
+            });
+
+            localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(data));
+            updateStatusBar();
+            showModal('💾 Tersimpan', `Data ${tanggal} berhasil disimpan!\n\nTotal siswa: ${data.siswa.length}`);
+        }
+
+        // ========== LOAD SAVED SESSION ==========
+        function loadSavedSession() {
+            const saved = localStorage.getItem(CONFIG.STORAGE_KEY);
+            if (saved) {
+                const data = JSON.parse(saved);
+                document.getElementById('tanggal').value = data.tanggal;
+                
+                // Restore checkbox states
+                const rows = document.querySelectorAll('#tbody tr');
+                rows.forEach((row, index) => {
+                    if (data.siswa[index]) {
+                        row.querySelector('.input-nama').value = data.siswa[index].nama;
+                        row.querySelector('.input-kelas').value = data.siswa[index].kelas;
+                        row.querySelector('.chk-subuh').checked = data.siswa[index].subuh;
+                        row.querySelector('.chk-dhuhur').checked = data.siswa[index].dhuhur;
+                        row.querySelector('.chk-asar').checked = data.siswa[index].asar;
+                        row.querySelector('.chk-magrib').checked = data.siswa[index].magrib;
+                        row.querySelector('.chk-isya').checked = data.siswa[index].isya;
+                        row.querySelector('.chk-dhuha').checked = data.siswa[index].dhuha;
+                        row.querySelector('.chk-tahajud').checked = data.siswa[index].tahajud;
+                    }
+                });
+                updateStatusBar();
+            }
+        }
+
+        // ========== UPDATE STATUS BAR ==========
+        function updateStatusBar() {
+            const saved = localStorage.getItem(CONFIG.STORAGE_KEY);
+            if (saved) {
+                const data = JSON.parse(saved);
+                document.getElementById('status-saved').textContent = `${data.tanggal} pukul ${data.timestamp.split(' ')[1]}`;
+                document.getElementById('status-info').textContent = '✅ Data tersimpan';
+            }
+        }
+
+        // ========== STUDENT LIST STORAGE ==========
+        function saveStudentListToStorage(data) {
+            localStorage.setItem(CONFIG.STUDENT_DATA_KEY, JSON.stringify(data));
+        }
+
+        function loadStudentListFromStorage() {
+            const stored = localStorage.getItem(CONFIG.STUDENT_DATA_KEY);
+            if (stored) {
+                renderTable(JSON.parse(stored));
+            }
+        }
+
+        // ========== KIRIM EMAIL ==========
+        function kirimSemuaKeEmail() {
+            const tanggal = document.getElementById('tanggal').value;
+            if (!tanggal) {
+                showModal('❌ Error', 'Harap pilih tanggal terlebih dahulu!');
+                return;
+            }
+
+            // Get button
+            const btn = document.querySelector('.send-all-btn');
+            const originalText = btn.innerText;
+
+            // Add effect
+            btn.classList.add('btn-sending');
+            btn.innerText = '📧 Mengirim...';
+            btn.disabled = true;
+            document.getElementById('status-info').textContent = '⏳ Sedang mengirim...';
+
+            // Collect data
+            const rows = document.querySelectorAll('#tbody tr');
+            let laporanTeks = `LAPORAN ABSENSI SHALAT - SRMA 3 TEBING TINGGI\n`;
+            laporanTeks += `Tanggal: ${formatTanggal(tanggal)}\n`;
+            laporanTeks += `Waktu: ${new Date().toLocaleString('id-ID')}\n`;
+            laporanTeks += `${'='.repeat(60)}\n\n`;
+
+            let totalSiswa = 0;
+            rows.forEach((row, index) => {
+                const nama = row.querySelector('.input-nama').value.trim();
+                const kelas = row.querySelector('.input-kelas').value.trim();
+
+                if (nama) {
+                    totalSiswa++;
+                    const s = row.querySelector('.chk-subuh').checked ? '[✓]' : '[ ]';
+                    const dh = row.querySelector('.chk-dhuhur').checked ? '[✓]' : '[ ]';
+                    const a = row.querySelector('.chk-asar').checked ? '[✓]' : '[ ]';
+                    const m = row.querySelector('.chk-magrib').checked ? '[✓]' : '[ ]';
+                    const i = row.querySelector('.chk-isya').checked ? '[✓]' : '[ ]';
+                    const dha = row.querySelector('.chk-dhuha').checked ? '[✓]' : '[ ]';
+                    const t = row.querySelector('.chk-tahajud').checked ? '[✓]' : '[ ]';
+
+                    laporanTeks += `${totalSiswa}. ${nama.toUpperCase()} (${kelas})\n`;
+                    laporanTeks += `   Subuh: ${s}  Dhuhur: ${dh}  Ashar: ${a}  Maghrib: ${m}\n`;
+                    laporanTeks += `   Isya: ${i}  Dhuha: ${dha}  Tahajud: ${t}\n`;
+                    laporanTeks += `${'-'.repeat(60)}\n`;
+                }
+            });
+
+            laporanTeks += `\nTotal Siswa: ${totalSiswa}\n`;
+            laporanTeks += `Dikirim: ${new Date().toLocaleString('id-ID')}\n`;
+            laporanTeks += `${'='.repeat(60)}\n`;
+
+            // Send via Google Apps Script
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    btn.classList.remove('btn-sending');
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                    document.getElementById('status-info').textContent = '✅ Email dikirim berhasil';
+                    showModal('📧 Sukses', res);
+                })
+                .withFailureHandler(function(err) {
+                    btn.classList.remove('btn-sending');
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                    document.getElementById('status-info').textContent = '❌ Gagal mengirim';
+                    showModal('❌ Error', 'Terjadi kesalahan: ' + err);
+                })
+                .kirimEmailOtomatis(laporanTeks, tanggal);
+        }
+
+        // ========== FORMAT TANGGAL ==========
+        function formatTanggal(dateString) {
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            return new Date(dateString + 'T00:00:00').toLocaleDateString('id-ID', options);
+        }
+
+        // ========== MODAL ==========
+        function showModal(title, message) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
